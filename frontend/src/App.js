@@ -9,6 +9,8 @@ function App() {
   const [descricao, setDescricao] = useState("");
   const [normaList, setNormaList] = useState([]);
 
+  const [novaDescricao, setNovaDescricao] = useState("");
+
   useEffect(()=>{
     Axios.get("http://localhost:3001/api/get").then((response) => {
       console.log(response.data);
@@ -27,16 +29,27 @@ function App() {
     setNormaList([
       ...normaList,
       {nome: nome, descricao: descricao},
-    ]);
+    ]);  
 
   };
 
-  const deleteBotao = () =>{
+  const deleteBotao = (nome) =>{
 
-    Axios.delete("http://localhost:3001/api/delete", nome);
+    //alert(nome);
+    //alert('http://localhost:3001/api/delete/');
+    Axios.delete('http://localhost:3001/api/delete/'.concat(nome));
 
   };
 
+  const updateBotao = (nome) =>{
+
+    Axios.put("http://localhost:3001/api/update",{
+      nome:nome, 
+      descricao:novaDescricao,
+    });
+    setNovaDescricao ("")
+
+  };
 
   return (
     <div className="App">
@@ -55,13 +68,20 @@ function App() {
         <button onClick={enviar}>Enviar</button>
 
         {normaList.map((val) => {
-          return <div className="card"> 
+          return (
+           <div className="card"> 
                     <h1>{val.nome} </h1>
-                    <p>{val.descricao}</p>   
-                    <button onClick={deleteBotao}>Delete</button>
-                    <input type="text" id="updateInput"></input>
-                    <button>Update</button>
-                 </div>
+                    <p>{val.descricao}</p> 
+
+                    <button onClick={() =>{deleteBotao(val.nome)}}>Delete</button>
+
+                    <input type="text" id="updateInput" onChange={(e) => {
+                        setNovaDescricao(e.target.value)
+                    }} />
+
+                    <button onClick={() =>{updateBotao(val.nome)}}>Update</button>
+            </div>
+         );
         })}
       </div>
 

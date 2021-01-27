@@ -56,17 +56,42 @@ app.post("/api/insert",(req,res)=>{
         console.log(nome);
         console.log(descricao);
         console.log(result);        
-        console.log(err);
+        console.log(err); 
     }); 
 
 });
 
-app.delete('/api/delete', (req,res) =>{
-    const nome = req.body.nome
+app.delete("/api/delete/:nome", (req,res) =>{
+    const nome = req.params.nome;
     const sqlDelete = "delete from norma where nome = ?;";
     
     db.query(sqlDelete, nome, (err, result)=>{
 
+        console.log("osvaldo!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        console.log(nome);
+        console.log(err);
+        console.log(result);
+        
+        if(err) console.log(err);
+        
+    });
+
+})
+
+app.put("/api/update", (req,res) =>{
+    const nome = req.body.nome;
+    const descricao = req.body.descricao;
+
+    const sqlUpdate = "update norma set descricao = ? where nome = ?;";
+    
+    db.query(sqlUpdate, [descricao,nome], (err, result)=>{
+
+        console.log("osvaldo!");
+        console.log(nome);
+        console.log(descricao);
+        console.log(err);
+        console.log(result);
+        
         if(err) console.log(err);
         
     });
