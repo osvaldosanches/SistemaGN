@@ -1,0 +1,193 @@
+{
+  "id": "aa1e696d-6514-45d4-acd0-d52b8f5af0b0",
+  "version": "2.0",
+  "name": "Sistema GN",
+  "url": "http://localhost:3000/",
+  "tests": [{
+    "id": "790724e8-7ca8-447e-9a0c-d9f112a862c3",
+    "name": "CRUD Norma",
+    "commands": [{
+      "id": "7c997549-8163-4f2e-86e8-5011f2862bc2",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:3000/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "7857989e-faa2-4a7c-9a2f-cc79a9659f5b",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "2576x1056",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "41f3aaac-86fd-4779-8a05-603f4917df94",
+      "comment": "",
+      "command": "click",
+      "target": "name=nome",
+      "targets": [
+        ["name=nome", "name"],
+        ["css=input:nth-child(2)", "css:finder"],
+        ["xpath=//input[@name='nome']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "2b49c2d5-5979-4849-a0f4-62559dd33b75",
+      "comment": "",
+      "command": "click",
+      "target": "css=.form",
+      "targets": [
+        ["css=.form", "css:finder"],
+        ["xpath=//div[@id='root']/div/div", "xpath:idRelative"],
+        ["xpath=//div/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "7f43bd20-c392-4e18-8a67-78ec1c694d4a",
+      "comment": "",
+      "command": "click",
+      "target": "name=nome",
+      "targets": [
+        ["name=nome", "name"],
+        ["css=input:nth-child(2)", "css:finder"],
+        ["xpath=//input[@name='nome']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "27d4dcd8-bd38-458f-81ac-884d4eee5b86",
+      "comment": "",
+      "command": "type",
+      "target": "name=nome",
+      "targets": [
+        ["name=nome", "name"],
+        ["css=input:nth-child(2)", "css:finder"],
+        ["xpath=//input[@name='nome']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "Norma ambiental de PLA 018"
+    }, {
+      "id": "bf1563d3-b148-48f2-908e-adb94147111a",
+      "comment": "",
+      "command": "click",
+      "target": "name=descricao",
+      "targets": [
+        ["name=descricao", "name"],
+        ["css=.form > input:nth-child(4)", "css:finder"],
+        ["xpath=//input[@name='descricao']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "02814231-6a37-4e00-a5fc-8078dc05d14d",
+      "comment": "",
+      "command": "type",
+      "target": "name=descricao",
+      "targets": [
+        ["name=descricao", "name"],
+        ["css=.form > input:nth-child(4)", "css:finder"],
+        ["xpath=//input[@name='descricao']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": "Inclusão Selenium - Material PLA para fabricação de etiqueta plástica ou lacre de produto"
+    }, {
+      "id": "68350a0d-acc7-4e47-9bba-69f6bfa97f2f",
+      "comment": "",
+      "command": "click",
+      "target": "css=.form > button",
+      "targets": [
+        ["css=.form > button", "css:finder"],
+        ["xpath=//div[@id='root']/div/div/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Enviar')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "3c1c0f03-bcf1-4e5c-9bcb-4bfa5d09d5bb",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "css=.form > button",
+      "targets": [
+        ["css=.form > button", "css:finder"],
+        ["xpath=//div[@id='root']/div/div/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Enviar')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "4493078b-9ff1-42d7-b035-d15c6aae8e9b",
+      "comment": "",
+      "command": "mouseOut",
+      "target": "css=.form > button",
+      "targets": [
+        ["css=.form > button", "css:finder"],
+        ["xpath=//div[@id='root']/div/div/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Enviar')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "ca4e1bd7-78bd-4f9c-b358-bb36c1134a5f",
+      "comment": "",
+      "command": "click",
+      "target": "css=.card:nth-child(12) > #updateInput",
+      "targets": [
+        ["css=.card:nth-child(12) > #updateInput", "css:finder"],
+        ["xpath=(//input[@id='updateInput'])[7]", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[7]/input", "xpath:idRelative"],
+        ["xpath=//div[7]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "818e2e8c-dd95-43ae-a943-137c23ec5f2b",
+      "comment": "",
+      "command": "type",
+      "target": "css=.card:nth-child(12) > #updateInput",
+      "targets": [
+        ["css=.card:nth-child(12) > #updateInput", "css:finder"],
+        ["xpath=(//input[@id='updateInput'])[7]", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[7]/input", "xpath:idRelative"],
+        ["xpath=//div[7]/input", "xpath:position"]
+      ],
+      "value": "Alteração Selenium - Material PETG para etiqueta"
+    }, {
+      "id": "05b8a27b-0b71-4639-982b-9c2575455a67",
+      "comment": "",
+      "command": "click",
+      "target": "css=.card:nth-child(12) > button:nth-child(5)",
+      "targets": [
+        ["css=.card:nth-child(12) > button:nth-child(5)", "css:finder"],
+        ["xpath=//div[@id='root']/div/div/div[7]/button[2]", "xpath:idRelative"],
+        ["xpath=//div[7]/button[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "cd902a6c-7d7c-481a-98f6-bc65079cd216",
+      "comment": "",
+      "command": "click",
+      "target": "css=.card:nth-child(12) > button:nth-child(3)",
+      "targets": [
+        ["css=.card:nth-child(12) > button:nth-child(3)", "css:finder"],
+        ["xpath=//div[@id='root']/div/div/div[7]/button", "xpath:idRelative"],
+        ["xpath=//div[7]/button", "xpath:position"]
+      ],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "718e747a-eb57-4597-9c3b-16b23877b3be",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["790724e8-7ca8-447e-9a0c-d9f112a862c3"]
+  }],
+  "urls": ["http://localhost:3000/"],
+  "plugins": []
+}
