@@ -50,7 +50,7 @@ app.post("/api/insert",(req,res)=>{
     const nome = req.body.nome
     const descricao = req.body.descricao
 
-    const sqlInsert = "INSERT INTO norma (id, nome, descrição, codigo, inicioVigencia, fimVigencia) VALUES ('8', ?, ?, '008', '01012021', '31122021');";
+    const sqlInsert = "INSERT INTO norma (id, nome, descrição, codigo, inicioVigencia, fimVigencia) VALUES ((SELECT * FROM (SELECT IFNULL(MAX(id),0)+1 FROM norma) AS t), ?, ?, '008', '01012021', '31122021');";
     
     
     db.query(sqlInsert,[nome, descricao],(err,result)=>{
