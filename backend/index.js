@@ -2,7 +2,7 @@ const express = require("express");
 const bodyParse = require("body-parser");
 const cors = require("cors");
 const app = express();
-const mysql = require("mysql");
+const mysql = require("mysql2");
 
 const db = mysql.createPool({
     host: "localhost",
@@ -50,7 +50,7 @@ app.post("/api/insert",(req,res)=>{
     const nome = req.body.nome
     const descricao = req.body.descricao
 
-    const sqlInsert = "INSERT INTO norma (id, nome, descricao, codigo, inicioVigencia, fimVigencia) VALUES ('8', ?, ?, '008', '01012021', '31122021');";
+    const sqlInsert = "INSERT INTO norma (id, nome, descrição, codigo, inicioVigencia, fimVigencia) VALUES ('8', ?, ?, '008', '01012021', '31122021');";
     
     
     db.query(sqlInsert,[nome, descricao],(err,result)=>{
@@ -83,7 +83,7 @@ app.put("/api/update", (req,res) =>{
     const nome = req.body.nome;
     const descricao = req.body.descricao;
 
-    const sqlUpdate = "update norma set descricao = ? where nome = ?;";
+    const sqlUpdate = "update norma set descrição = ? where nome = ?;";
     
     db.query(sqlUpdate, [descricao,nome], (err, result)=>{
 
