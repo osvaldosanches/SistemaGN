@@ -28,8 +28,8 @@ function App() {
     
     setNormaList([
       ...normaList,
-      {nome: nome, descricao: descricao},
-    ]);  
+      {id: Date.now(), nome: nome, descrição: descricao},
+    ]);
 
   };
 
@@ -69,9 +69,9 @@ function App() {
 
         {normaList.map((val) => {
           return (
-           <div className="card"> 
+           <div className="card" key={val.id}>
                     <h1>{val.nome} </h1>
-                    <p>{val.descricao}</p> 
+                    <p>{val.descrição}</p>
 
                     <button onClick={() =>{deleteBotao(val.nome)}}>Delete</button>
 
