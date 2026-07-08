@@ -20,6 +20,7 @@ const db = mysql.createPool({
 
 //});
 
+//validar
 app.get("/api/get",(req,res)=>{
     
     const sqlSelect = "SELECT * FROM NORMA;";
@@ -37,7 +38,7 @@ app.get("/api/get",(req,res)=>{
 
 });
 
-app.use(cors());
+app.use(cors());   
 
 app.use(express.json());
 
