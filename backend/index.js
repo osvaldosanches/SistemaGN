@@ -25,7 +25,7 @@ app.get("/api/get",(req,res)=>{
     
     const sqlSelect = "SELECT * FROM NORMA;";
         
-    db.query(sqlSelect,(err,result)=>{
+    db.query(sqlSelect,(err,result)=>{//validar a query
         //
         console.log(result);        
         //console.log(err);
