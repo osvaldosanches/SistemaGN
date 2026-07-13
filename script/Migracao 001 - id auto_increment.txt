@@ -1,0 +1,5 @@
+-- Ajusta o id existente para AUTO_INCREMENT (necessário só em bancos criados
+-- antes desta migração; instalações novas já criam a tabela correta a partir
+-- de "Script tabela norma.txt").
+ALTER TABLE `gn`.`norma`
+  MODIFY `id` INT NOT NULL AUTO_INCREMENT;

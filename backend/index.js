@@ -1,104 +1,95 @@
+require("dotenv").config();
+
 const express = require("express");
-const bodyParse = require("body-parser");
 const cors = require("cors");
-const app = express();
 const mysql = require("mysql2");
 
+const app = express();
+
 const db = mysql.createPool({
-    host: "localhost",
-    user: "root",
-    password: "password",
-    database: "gn",
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
 });
 
-//app.get('/',(req,res)=>{
-    //const sqlInsert = "INSERT INTO norma (id, nome, descricao, codigo, inicioVigencia, fimVigencia) VALUES ('4', 'Norma ambiental de PLA 010', 'Material PLA para fabricação de etiqueta plástica ou lacre de produto', '004', '01012021', '31122021');";
-    //db.query(sqlInsert,(err,result)=>{
-    //    console.log(err);
-    //    res.send('hello Osvaldo teste2 ');
-    //}); 
-
-//});
-
-//validar
-app.get("/api/get",(req,res)=>{
-    
-    const sqlSelect = "SELECT * FROM NORMA;";
-        
-    db.query(sqlSelect,(err,result)=>{//validar a query
-        //
-        console.log(result);        
-        //console.log(err);
-        //linhas para resolver o erro do console - o cabeçalho CORS 'Access-Control-Allow-Origin' não está presente
-        res.header("Access-Control-Allow-Origin", "*");
-        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-        res.send(result);
-        //res.send('hello Osvaldo teste2 ');
-    }); 
-
-});
-
-app.use(cors());   
-
+app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-app.use(bodyParse.urlencoded({extended:true}));
+app.get("/api/get", (req, res) => {
+    const sqlSelect = "SELECT * FROM norma;";
 
-app.post("/api/insert",(req,res)=>{
-//app.post('/api/insert',(req,res)=>{   
-    
-    const nome = req.body.nome
-    const descricao = req.body.descricao
-
-    const sqlInsert = "INSERT INTO norma (id, nome, descrição, codigo, inicioVigencia, fimVigencia) VALUES ((SELECT * FROM (SELECT IFNULL(MAX(id),0)+1 FROM norma) AS t), ?, ?, '008', '01012021', '31122021');";
-    
-    
-    db.query(sqlInsert,[nome, descricao],(err,result)=>{
-        console.log(nome);
-        console.log(descricao);
-        console.log(result);        
-        console.log(err); 
-    }); 
-
+    db.query(sqlSelect, (err, result) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).send({ error: "Erro ao consultar normas." });
+        }
+        res.send(result);
+    });
 });
 
-app.delete("/api/delete/:nome", (req,res) =>{
-    const nome = req.params.nome;
-    const sqlDelete = "delete from norma where nome = ?;";
-    
-    db.query(sqlDelete, nome, (err, result)=>{
+app.post("/api/insert", (req, res) => {
+    const { nome, descricao } = req.body;
 
-        console.log("osvaldo!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-        console.log(nome);
-        console.log(err);
-        console.log(result);
-        
-        if(err) console.log(err);
-        
+    if (!nome || !descricao) {
+        return res.status(400).send({ error: "Campos 'nome' e 'descricao' são obrigatórios." });
+    }
+
+    const sqlInsert = "INSERT INTO norma (nome, descrição) VALUES (?, ?);";
+
+    db.query(sqlInsert, [nome, descricao], (err, result) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).send({ error: "Erro ao inserir norma." });
+        }
+        res.status(201).send({ id: result.insertId, nome, descricao });
     });
+});
 
-})
+app.delete("/api/delete/:id", (req, res) => {
+    const id = Number(req.params.id);
 
-app.put("/api/update", (req,res) =>{
-    const nome = req.body.nome;
-    const descricao = req.body.descricao;
+    if (!Number.isInteger(id)) {
+        return res.status(400).send({ error: "Parâmetro 'id' inválido." });
+    }
 
-    const sqlUpdate = "update norma set descrição = ? where nome = ?;";
-    
-    db.query(sqlUpdate, [descricao,nome], (err, result)=>{
+    const sqlDelete = "DELETE FROM norma WHERE id = ?;";
 
-        console.log("osvaldo!");
-        console.log(nome);
-        console.log(descricao);
-        console.log(err);
-        console.log(result);
-        
-        if(err) console.log(err);
-        
+    db.query(sqlDelete, [id], (err, result) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).send({ error: "Erro ao excluir norma." });
+        }
+        if (result.affectedRows === 0) {
+            return res.status(404).send({ error: "Norma não encontrada." });
+        }
+        res.send({ id });
     });
+});
 
-})
+app.put("/api/update", (req, res) => {
+    const { id, descricao } = req.body;
 
-app.listen(3001,()=>{
-    console.log("running on port 3001");
+    if (!Number.isInteger(id) || !descricao) {
+        return res.status(400).send({ error: "Campos 'id' e 'descricao' são obrigatórios." });
+    }
+
+    const sqlUpdate = "UPDATE norma SET descrição = ? WHERE id = ?;";
+
+    db.query(sqlUpdate, [descricao, id], (err, result) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).send({ error: "Erro ao atualizar norma." });
+        }
+        if (result.affectedRows === 0) {
+            return res.status(404).send({ error: "Norma não encontrada." });
+        }
+        res.send({ id, descricao });
+    });
+});
+
+const port = process.env.PORT || 3001;
+app.listen(port, () => {
+    console.log(`running on port ${port}`);
 });

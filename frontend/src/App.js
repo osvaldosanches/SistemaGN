@@ -11,44 +11,41 @@ function App() {
 
   const [novaDescricao, setNovaDescricao] = useState("");
 
-  useEffect(()=>{
+  const carregarNormas = () => {
     Axios.get("http://localhost:3001/api/get").then((response) => {
-      console.log(response.data);
       setNormaList(response.data);
     });
-  },[]);
-
-  const enviar = () =>{
-
-
-    Axios.post("http://localhost:3001/api/insert",{
-      nome:nome, 
-      descricao:descricao,
-    });
-    
-    setNormaList([
-      ...normaList,
-      {id: Date.now(), nome: nome, descrição: descricao},
-    ]);
-
   };
 
-  const deleteBotao = (nome) =>{
+  useEffect(() => {
+    carregarNormas();
+  }, []);
 
-    //alert(nome);
-    //alert('http://localhost:3001/api/delete/');
-    Axios.delete('http://localhost:3001/api/delete/'.concat(nome));
-
+  const enviar = () => {
+    Axios.post("http://localhost:3001/api/insert", {
+      nome: nome,
+      descricao: descricao,
+    }).then(() => {
+      setNome("");
+      setDescricao("");
+      carregarNormas();
+    });
   };
 
-  const updateBotao = (nome) =>{
-
-    Axios.put("http://localhost:3001/api/update",{
-      nome:nome, 
-      descricao:novaDescricao,
+  const deleteBotao = (id) => {
+    Axios.delete("http://localhost:3001/api/delete/".concat(id)).then(() => {
+      carregarNormas();
     });
-    setNovaDescricao ("")
+  };
 
+  const updateBotao = (id) => {
+    Axios.put("http://localhost:3001/api/update", {
+      id: id,
+      descricao: novaDescricao,
+    }).then(() => {
+      setNovaDescricao("");
+      carregarNormas();
+    });
   };
 
   return (
@@ -73,13 +70,13 @@ function App() {
                     <h1>{val.nome} </h1>
                     <p>{val.descrição}</p>
 
-                    <button onClick={() =>{deleteBotao(val.nome)}}>Delete</button>
+                    <button onClick={() =>{deleteBotao(val.id)}}>Delete</button>
 
                     <input type="text" id="updateInput" onChange={(e) => {
                         setNovaDescricao(e.target.value)
                     }} />
 
-                    <button onClick={() =>{updateBotao(val.nome)}}>Update</button>
+                    <button onClick={() =>{updateBotao(val.id)}}>Update</button>
             </div>
          );
         })}

@@ -1,5 +1,5 @@
 CREATE TABLE `gn`.`norma` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(40) NULL,
   `descrição` VARCHAR(200) NULL,
   `codigo` INT NULL,
